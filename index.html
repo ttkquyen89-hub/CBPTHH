@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Học Tập: Lập Phương Trình Hóa Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth transitions */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans text-slate-800">
+
+    <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+        
+        <!-- Header Section -->
+        <div class="bg-green-800 text-white p-6 sm:p-8 text-center relative overflow-hidden">
+            <!-- Decorative Icons -->
+            <svg class="absolute top-2 left-2 sm:top-4 sm:left-8 w-16 h-16 sm:w-24 sm:h-24 text-green-600 opacity-50 transform -rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            <svg class="absolute -bottom-4 right-2 sm:bottom-0 sm:right-8 w-20 h-20 sm:w-32 sm:h-32 text-green-600 opacity-40 transform rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"></circle><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(45 12 12)"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-45 12 12)"></ellipse></svg>
+            
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3 text-orange-500 drop-shadow-md relative z-10">Phiếu Học Tập</h1>
+            <h2 class="text-xl sm:text-2xl font-medium opacity-90 relative z-10 text-green-50">Lập Phương Trình Hóa Học</h2>
+        </div>
+
+        <!-- Instructions -->
+        <div class="p-6 sm:p-8 bg-green-50 border-b border-slate-200">
+            <h3 class="font-bold text-green-800 text-lg mb-2 flex items-center">
+                <svg class="w-6 h-6 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                Hướng dẫn làm bài:
+            </h3>
+            <ul class="list-disc list-inside text-slate-700 space-y-2 text-lg">
+                <li>Nhấn vào khoảng trống trước mỗi chất để chọn <strong>hệ số</strong> thích hợp.</li>
+                <li>Thay đổi dấu mũi tên từ nét đứt <strong>( - - -> )</strong> thành nét liền <strong>( ⟶ )</strong> để xác nhận tạo thành phương trình.</li>
+                <li><strong class="text-red-600">Lưu ý:</strong> Nếu hệ số là <strong>1</strong> thì <strong>không cần điền</strong> (hãy để trống).</li>
+                <li>Nhấn nút <strong>"Kiểm tra"</strong> ở từng dòng để xem kết quả phương trình đó.</li>
+            </ul>
+        </div>
+
+        <!-- Worksheet Content -->
+        <div class="p-2 sm:p-8">
+            <div class="overflow-x-auto pb-4">
+                <table class="w-full text-left border-collapse min-w-max">
+                    <thead>
+                        <tr class="bg-slate-100 border-b-2 border-slate-300">
+                            <th class="py-4 px-2 sm:px-4 text-center font-bold text-slate-600 w-12 sm:w-16">STT</th>
+                            <th class="py-4 px-2 sm:px-4 font-bold text-slate-600 text-base sm:text-lg">Sơ đồ phản ứng / Phương trình hóa học</th>
+                        </tr>
+                    </thead>
+                    <tbody id="equations-container" class="divide-y divide-slate-200">
+                        <!-- Equations will be injected here by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Action Buttons & Score -->
+        <div class="bg-slate-50 p-6 sm:p-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div id="score-display" class="text-2xl font-bold text-blue-700 hidden">
+                Điểm: <span id="score-value">0</span>/20
+            </div>
+            <div class="flex gap-4 w-full sm:w-auto">
+                <button onclick="resetWorksheet()" class="flex-1 sm:flex-none px-6 py-3 bg-white border-2 border-slate-300 text-slate-700 font-bold rounded-lg hover:bg-slate-50 hover:border-slate-400 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-200">
+                    Làm lại
+                </button>
+                <button onclick="checkAnswers()" class="flex-1 sm:flex-none px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Kiểm tra đáp án
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data structure holding all 20 equations with their correct coefficients
+        const equationsData = [
+            { id: 1, reactants: [{ f: "H₂", c: 2 }, { f: "O₂", c: 1 }], products: [{ f: "H₂O", c: 2 }] },
+            { id: 2, reactants: [{ f: "Fe", c: 3 }, { f: "O₂", c: 2 }], products: [{ f: "Fe₃O₄", c: 1 }] },
+            { id: 3, reactants: [{ f: "Mg", c: 2 }, { f: "O₂", c: 1 }], products: [{ f: "MgO", c: 2 }] },
+            { id: 4, reactants: [{ f: "Al", c: 4 }, { f: "O₂", c: 3 }], products: [{ f: "Al₂O₃", c: 2 }] },
+            { id: 5, reactants: [{ f: "Na", c: 2 }, { f: "Cl₂", c: 1 }], products: [{ f: "NaCl", c: 2 }] },
+            { id: 6, reactants: [{ f: "H₂", c: 1 }, { f: "Cl₂", c: 1 }], products: [{ f: "HCl", c: 2 }] },
+            { id: 7, reactants: [{ f: "Fe", c: 1 }, { f: "HCl", c: 2 }], products: [{ f: "FeCl₂", c: 1 }, { f: "H₂", c: 1 }] },
+            { id: 8, reactants: [{ f: "Zn", c: 1 }, { f: "HCl", c: 2 }], products: [{ f: "ZnCl₂", c: 1 }, { f: "H₂", c: 1 }] },
+            { id: 9, reactants: [{ f: "Mg", c: 1 }, { f: "HCl", c: 2 }], products: [{ f: "MgCl₂", c: 1 }, { f: "H₂", c: 1 }] },
+            { id: 10, reactants: [{ f: "Al", c: 2 }, { f: "HCl", c: 6 }], products: [{ f: "AlCl₃", c: 2 }, { f: "H₂", c: 3 }] },
+            { id: 11, reactants: [{ f: "CuO", c: 1 }, { f: "H₂", c: 1 }], products: [{ f: "Cu", c: 1 }, { f: "H₂O", c: 1 }] },
+            { id: 12, reactants: [{ f: "Fe₂O₃", c: 1 }, { f: "H₂", c: 3 }], products: [{ f: "Fe", c: 2 }, { f: "H₂O", c: 3 }] },
+            { id: 13, reactants: [{ f: "CaCO₃", c: 1 }], products: [{ f: "CaO", c: 1 }, { f: "CO₂", c: 1 }] },
+            { id: 14, reactants: [{ f: "KClO₃", c: 2 }], products: [{ f: "KCl", c: 2 }, { f: "O₂", c: 3 }] },
+            { id: 15, reactants: [{ f: "Al", c: 2 }, { f: "H₂SO₄", c: 3 }], products: [{ f: "Al₂(SO₄)₃", c: 1 }, { f: "H₂", c: 3 }] },
+            { id: 16, reactants: [{ f: "C", c: 1 }, { f: "O₂", c: 1 }], products: [{ f: "CO₂", c: 1 }] },
+            { id: 17, reactants: [{ f: "CO", c: 2 }, { f: "O₂", c: 1 }], products: [{ f: "CO₂", c: 2 }] },
+            { id: 18, reactants: [{ f: "CH₄", c: 1 }, { f: "O₂", c: 2 }], products: [{ f: "CO₂", c: 1 }, { f: "H₂O", c: 2 }] },
+            { id: 19, reactants: [{ f: "NaOH", c: 1 }, { f: "HCl", c: 1 }], products: [{ f: "NaCl", c: 1 }, { f: "H₂O", c: 1 }] },
+            { id: 20, reactants: [{ f: "Ca(OH)₂", c: 1 }, { f: "HCl", c: 2 }], products: [{ f: "CaCl₂", c: 1 }, { f: "H₂O", c: 2 }] }
+        ];
+
+        // Options for the dropdown (empty + 2 to 10) - Since 1 doesn't need to be filled
+        const generateOptions = () => {
+            let opts = `<option value=""> </option>`;
+            for (let i = 2; i <= 10; i++) {
+                opts += `<option value="${i}">${i}</option>`;
+            }
+            return opts;
+        };
+        const dropdownOptions = generateOptions();
+
+        function renderWorksheet() {
+            const container = document.getElementById('equations-container');
+            container.innerHTML = '';
+
+            equationsData.forEach((eq, index) => {
+                const tr = document.createElement('tr');
+                tr.id = `row-${eq.id}`;
+                tr.className = "hover:bg-blue-50 transition-colors group";
+
+                // STT Column
+                const tdStt = document.createElement('td');
+                tdStt.className = "py-6 px-4 text-center font-semibold text-slate-500 text-xl";
+                tdStt.textContent = eq.id;
+
+                // Equation Column
+                const tdEq = document.createElement('td');
+                tdEq.className = "py-6 px-2 sm:px-4";
+                
+                const eqWrapper = document.createElement('div');
+                // Bỏ flex-wrap, thêm flex-nowrap và whitespace-nowrap để ép trên 1 dòng
+                eqWrapper.className = "flex items-center flex-nowrap whitespace-nowrap";
+
+                // Render Reactants
+                eq.reactants.forEach((r, rIndex) => {
+                    const part = createSubstanceBlock(eq.id, 'r', rIndex, r.f);
+                    eqWrapper.appendChild(part);
+
+                    if (rIndex < eq.reactants.length - 1) {
+                        const plus = document.createElement('span');
+                        plus.className = "mx-2 sm:mx-3 text-2xl sm:text-3xl font-bold text-slate-400 flex-shrink-0";
+                        plus.textContent = "+";
+                        eqWrapper.appendChild(plus);
+                    }
+                });
+
+                // Render Arrow (Interactive)
+                const arrowWrapper = document.createElement('div');
+                arrowWrapper.className = "mx-2 sm:mx-4 flex-shrink-0";
+                const arrowSelect = document.createElement('select');
+                arrowSelect.id = `arrow-${eq.id}`;
+                // Tinh chỉnh cỡ chữ linh hoạt: đt là 2xl, máy tính là 3xl
+                arrowSelect.className = "appearance-none text-2xl sm:text-3xl font-bold text-blue-600 bg-transparent cursor-pointer hover:bg-slate-200 rounded px-2 sm:px-3 py-1 focus:outline-none text-center transition-colors";
+                arrowSelect.innerHTML = `
+                    <option value="dashed">- - - &gt;</option>
+                    <option value="solid">&xrarr;</option>
+                `;
+                arrowWrapper.appendChild(arrowSelect);
+                eqWrapper.appendChild(arrowWrapper);
+
+                // Render Products
+                eq.products.forEach((p, pIndex) => {
+                    const part = createSubstanceBlock(eq.id, 'p', pIndex, p.f);
+                    eqWrapper.appendChild(part);
+
+                    if (pIndex < eq.products.length - 1) {
+                        const plus = document.createElement('span');
+                        plus.className = "mx-2 sm:mx-3 text-2xl sm:text-3xl font-bold text-slate-400 flex-shrink-0";
+                        plus.textContent = "+";
+                        eqWrapper.appendChild(plus);
+                    }
+                });
+
+                // Tích hợp nút Kiểm tra ngay sau phương trình
+                const actionWrapper = document.createElement('div');
+                actionWrapper.className = "ml-6 pl-6 border-l-2 border-slate-200 flex items-center gap-3 flex-shrink-0";
+                actionWrapper.innerHTML = `
+                    <button onclick="checkSingleAnswer(${eq.id})" class="px-4 py-2 bg-blue-100 text-blue-700 font-bold rounded-lg hover:bg-blue-200 transition-colors text-sm sm:text-base whitespace-nowrap shadow-sm border border-blue-200 focus:outline-none">
+                        Kiểm tra
+                    </button>
+                    <div id="result-${eq.id}" class="hidden w-8 h-8 rounded-full items-center justify-center text-2xl transition-all"></div>
+                `;
+                eqWrapper.appendChild(actionWrapper);
+
+                tdEq.appendChild(eqWrapper);
+
+                tr.appendChild(tdStt);
+                tr.appendChild(tdEq);
+                container.appendChild(tr);
+            });
+        }
+
+        // Helper to create the block for a single substance (coefficient select + formula)
+        function createSubstanceBlock(eqId, type, index, formula) {
+            const div = document.createElement('div');
+            // Thêm flex-shrink-0 để phần tử không bị bóp méo khi màn hình nhỏ
+            div.className = "flex items-center gap-0.5 sm:gap-1 flex-shrink-0";
+            
+            const select = document.createElement('select');
+            select.id = `coef-${eqId}-${type}-${index}`;
+            // Tinh chỉnh kích thước tương thích điện thoại
+            select.className = "appearance-none w-8 sm:w-10 h-10 sm:h-12 text-center font-bold text-2xl sm:text-3xl text-blue-600 bg-transparent cursor-pointer hover:bg-slate-200 rounded focus:outline-none transition-colors";
+            select.innerHTML = dropdownOptions;
+            
+            const span = document.createElement('span');
+            span.className = "text-2xl sm:text-3xl font-semibold text-slate-800 tracking-wide";
+            span.innerHTML = formatFormula(formula);
+
+            div.appendChild(select);
+            div.appendChild(span);
+            return div;
+        }
+
+        // Add some basic styling to formulas if needed
+        function formatFormula(f) {
+            return f; 
+        }
+
+        // Check a single equation
+        function checkSingleAnswer(eqId) {
+            const eq = equationsData.find(e => e.id === eqId);
+            if (!eq) return;
+
+            let isCorrect = true;
+            
+            // Check arrow
+            const arrowVal = document.getElementById(`arrow-${eq.id}`).value;
+            if (arrowVal !== 'solid') {
+                isCorrect = false;
+            }
+
+            // Check reactants
+            eq.reactants.forEach((r, idx) => {
+                const userVal = document.getElementById(`coef-${eq.id}-r-${idx}`).value;
+                const expectedVal = r.c;
+                if (expectedVal === 1) {
+                    if (userVal !== "") isCorrect = false; // Must be left blank for 1
+                } else {
+                    if (parseInt(userVal) !== expectedVal) isCorrect = false;
+                }
+            });
+
+            // Check products
+            eq.products.forEach((p, idx) => {
+                const userVal = document.getElementById(`coef-${eq.id}-p-${idx}`).value;
+                const expectedVal = p.c;
+                if (expectedVal === 1) {
+                    if (userVal !== "") isCorrect = false; // Must be left blank for 1
+                } else {
+                    if (parseInt(userVal) !== expectedVal) isCorrect = false;
+                }
+            });
+
+            // Update UI based on result
+            const resultDiv = document.getElementById(`result-${eq.id}`);
+            const row = document.getElementById(`row-${eq.id}`);
+
+            resultDiv.classList.remove('hidden');
+
+            if (isCorrect) {
+                resultDiv.innerHTML = "✅";
+                resultDiv.className = "w-8 h-8 rounded-full flex items-center justify-center text-2xl transition-all scale-110 opacity-100 flex-shrink-0";
+                row.classList.remove('bg-red-50');
+                row.classList.add('bg-green-50');
+            } else {
+                resultDiv.innerHTML = "❌";
+                resultDiv.className = "w-8 h-8 rounded-full flex items-center justify-center text-2xl transition-all opacity-100 flex-shrink-0";
+                row.classList.remove('bg-green-50');
+                row.classList.add('bg-red-50');
+            }
+        }
+
+        // Check all equations at once
+        function checkAnswers() {
+            equationsData.forEach((eq) => {
+                checkSingleAnswer(eq.id);
+            });
+
+            // Calculate score
+            let score = document.querySelectorAll('.bg-green-50').length;
+
+            // Update Score Display
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreValue = document.getElementById('score-value');
+            scoreValue.textContent = score;
+            scoreDisplay.classList.remove('hidden');
+            
+            // Scroll to bottom smoothly to see score
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        function resetWorksheet() {
+            // Re-render to clear everything
+            renderWorksheet();
+            
+            // Hide score
+            document.getElementById('score-display').classList.add('hidden');
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Initialize on load
+        window.onload = () => {
+            renderWorksheet();
+        };
+    </script>
+</body>
+</html>
